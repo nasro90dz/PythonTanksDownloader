@@ -1,3 +1,7 @@
+# download_tanks.py
+# Copyright (c) 2025 nasro90dz
+# Licensed under the MIT License. See LICENSE file in the project root for full license information.
+
 import os
 import time
 from selenium import webdriver
