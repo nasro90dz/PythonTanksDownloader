@@ -1,0 +1,157 @@
+# ============================
+# Tanks CSV Downloader Project
+# ============================
+
+This project downloads a CSV file automatically from a given URL using Python and Selenium.
+The browser runs in the background (headless mode). Optionally, you can run the script silently or on a schedule.
+
+---
+
+## 1. Project Structure
+
+Create a folder called: TanksCSVDownloader
+
+Inside it, create these files:
+
+- download_tanks.py
+- requirements.txt
+- run_download.bat
+- silent_download.vbs
+- README.md
+- .gitignore (optional)
+
+---
+
+## 2. Install Python & Selenium
+
+If not installed:
+- Install Python from https://www.python.org/
+- Add Python to PATH during installation
+
+Then install Selenium:
+
+```bash
+pip install selenium
+```
+
+To freeze dependencies into requirements.txt:
+
+```bash
+pip freeze > requirements.txt
+```
+
+Or just manually add:
+
+```
+selenium>=4.0.0
+```
+
+---
+
+## 3. Setup ChromeDriver
+
+- Download ChromeDriver from: https://sites.google.com/chromium.org/driver/
+- Ensure the version matches your Chrome browser
+- Place it in: C:\Tools\chromedriver.exe (or update the path in download_tanks.py)
+
+---
+
+## 4. Script Behavior
+
+`download_tanks.py` does the following:
+- Opens the download URL in a hidden browser
+- Waits for the page to load
+- Clicks the file link (Tanks.csv)
+- Downloads the file to a specific folder
+- Optionally deletes the existing file first
+
+---
+
+## 5. Run the Script
+
+Use any of the following:
+
+### Option 1: Normal run (visible console)
+```bash
+python download_tanks.py
+```
+
+### Option 2: Run with .bat
+Double-click:
+```
+run_download.bat
+```
+
+### Option 3: Silent run (no window)
+Double-click:
+```
+silent_download.vbs
+```
+
+---
+
+## 6. (Optional) Add to Windows Task Scheduler
+
+To run every hour:
+1. Open "Task Scheduler"
+2. Create a Basic Task
+3. Choose: Run `silent_download.vbs` every 1 hour
+4. Make sure you check "Run whether user is logged in or not"
+
+---
+
+
+
+---
+
+## 7. (Optional) Convert Python Script to EXE
+
+You can convert `download_tanks.py` into a standalone `.exe` file using `pyinstaller`.
+
+▶ STEP 1: Install pyinstaller:
+```bash
+pip install pyinstaller
+```
+
+▶ STEP 2: Convert the script:
+```bash
+pyinstaller --onefile --windowed download_tanks.py
+```
+
+Explanation:
+- `--onefile`: Packages everything into one executable
+- `--windowed`: Hides the command line window (silent mode)
+
+▶ STEP 3: Find the output in:
+```
+dist/download_tanks.exe
+```
+
+▶ STEP 4: (Optional) Use this `.exe` in your `run_download.bat` and `silent_download.vbs` files instead of the `.py` version.
+
+▶ STEP 5: Clean up (optional):
+
+After compiling, delete these auto-generated folders:
+- `build/`
+- `dist/`
+- `__pycache__/`
+- `download_tanks.spec`
+
+---
+
+## 8. Replace Script in Batch/VBS Files
+
+▶ Update `run_download.bat` to:
+```
+@echo off
+start "" "dist\download_tanks.exe"
+```
+
+▶ Update `silent_download.vbs` to:
+```vbscript
+Set WshShell = CreateObject("WScript.Shell")
+WshShell.Run chr(34) & "dist\download_tanks.exe" & chr(34), 0
+Set WshShell = Nothing
+```
+
+✅ Now you can run the downloader on any Windows machine without Python installed.
